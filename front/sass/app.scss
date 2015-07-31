@@ -1,0 +1,711 @@
+.row { max-width: 960px; }
+
+// Responsive
+// ---------------
+$break-small : 640px;
+$break-large: 1240px;
+ 
+@mixin respond-to($media) {
+  @if $media == handhelds {
+    @media only screen and (max-width: $break-small) { @content; }
+  }
+  @else if $media == medium-screens {
+    @media only screen and (min-width: $break-small + 1) and (max-width: $break-large - 1) { @content; }
+  }
+  @else if $media == wide-screens {
+    @media only screen and (min-width: $break-large) { @content; }
+  }
+}
+
+// Margins and Paddings
+// ---------------
+$unit-base: 10px;
+
+// Colors
+// ---------------
+$link-color: #60A800;
+$text-color: #333;
+$text-color-gray: #8C8C8C;
+$title-section: #b4b4b4;
+$gray-line: rgba(0, 0, 0, 0.2);
+$gray-background: #F1F3F3;
+
+// Fonts and sizes
+// ---------------
+$h1: 55px;
+$h2: 47px;
+$h3: 30px;
+$h4: 23px;
+
+$post-text: 18px;
+$description-text: 16px;
+$description-text-mobile: 12px;
+$detail-text: 14px;
+
+$h1-m: 25px;
+$h3-m: 21px;
+$h4-m: 18px;
+
+h1, 
+h2, 
+h3, 
+h4 { font-weight: 900; margin: $unit-base 0; display: inline-block; }
+
+h1 { font-size: $h1; line-height: 110%; @include respond-to(handhelds) { font-size: $h1-m; line-height: 110%; } }
+h2 { font-size: $h2; line-height: 110%; @include respond-to(handhelds) { font-size: $h1-m; line-height: 110%; } }
+h3 { font-size: $h3; line-height: 110%; @include respond-to(handhelds) { font-size: $h3-m; } }
+h4 { font-size: $h4; line-height: 130%; @include respond-to(handhelds) { font-size: $h4-m; } }
+
+// ---------------
+
+@import "icons";
+
+// ---------------
+
+body {
+	font-family: 'Lato', sans-serif;
+	font-size: $post-text;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	color: $text-color;
+}
+
+a { 
+	color: $link-color; 
+	text-decoration: none;
+	&:hover {
+		text-decoration: none;
+		color: $text-color;
+	}
+}
+
+.circle {
+	height: 27px;
+	width: 27px;
+	display: inline-table;
+	background-color: $link-color;
+	border-radius: 50%;
+	color: white;
+	font-size: 10px;
+	text-align: center;
+	margin-right: $unit-base;
+}
+
+.no-show {
+	@include respond-to(handhelds) {
+		display: none;
+	}
+}
+
+.big-i {
+	font-size: 13px;
+	height: $unit-base*3;
+	width: $unit-base*3;
+	padding-top: 2px;
+}
+
+.sidebar {
+	font-size: 13px;
+	color: $text-color-gray;
+	margin-right: $unit-base;
+}
+
+.main-header p,
+#bio a,
+#main-nav li, 
+#main-nav li a,
+.post-entry a,
+footer a,
+footer .files ul span,
+.involved ul span,
+.before,
+.after {
+	font-weight: 900;
+}
+
+ul { list-style-type: none; }
+
+.button {
+	font-size: $description-text;
+	border: none;
+	background-color: white;
+	margin: 0;
+	@include respond-to(handhelds) {
+		font-size: $description-text-mobile;
+	}
+}
+
+.padding-btn {
+	padding: $unit-base+5 $unit-base*3 $unit-base*2;
+}
+
+.download {
+	border-radius: 70px;
+	margin-top: $unit-base;
+	@extend .padding-btn;
+}
+
+.main-header #home, .main-header #main-nav {
+	padding-top: $unit-base*9;
+	padding-bottom: $unit-base*6;
+	@include respond-to(handhelds) {
+		padding: $unit-base * 2 0 0 0; 
+	}
+}
+
+.main-header #home, #bio, #main-content {
+	background-color: $gray-background;
+}
+
+.post {
+	background-color: none;
+}
+
+.main-header {
+	#home {
+		padding-left: $unit-base*3;
+		.home-a {
+			@include respond-to(handhelds) {
+				width: $unit-base*18;
+				margin: 0 auto;
+			}
+		}
+		img {
+			border-radius: 50%;
+		}
+		p {
+			margin: $unit-base/2 0 0 $unit-base*2;
+			width: $unit-base*10;
+			font-size: 30px;
+			@include respond-to(medium-screens) {
+				font-size: $h3-m;
+			}
+			@include respond-to(handhelds) {
+				font-size: $h3-m;
+			}
+		}
+		@include respond-to(handhelds) {
+			padding-left: 0;
+		}
+	}
+	#main-nav {
+		padding-right: 0;
+		ul {
+			float: right;
+			margin-bottom: 0;
+			li {
+				float: left;
+				margin-right: $unit-base*2;
+				padding-bottom: $unit-base;
+				&:last-child {
+					margin-right: 0;
+				}
+				a {
+					@include respond-to(handhelds) {
+						font-size: $detail-text;
+					}
+				}
+				@include respond-to(handhelds) {
+					padding-bottom: $unit-base*2;
+				}
+			}
+			@include respond-to(handhelds) {
+				padding: 0;
+				width: 175px;
+				margin: 0 auto;
+				float: none;
+			}
+			.active {
+				// border-bottom: 2px solid $text-color;
+				@include respond-to(handhelds) {
+					margin-top: 2px;
+					font-size: $detail-text;
+				}	
+			}
+		}
+		@include respond-to(handhelds) {
+			background-color: $gray-background;
+			// padding-bottom: $unit-base*2;
+		}
+		@include respond-to(medium-screens) {
+			padding-right: $unit-base*3;	
+		}
+	}
+	@include respond-to(handhelds) {
+		padding: 0 $unit-base*2;
+	}
+}
+
+.inside {
+	#home {
+		background-color: white;
+		padding-left: 0;
+		@include respond-to(handhelds) {
+			background-color: $gray-background;
+		}
+	}
+	#main-nav {
+		@include respond-to(medium-screens) {
+			padding-right: 0;
+		}
+	}
+	@include respond-to(medium-screens) {
+		padding: 0 $unit-base*3;
+	}
+	@include respond-to(handhelds) {
+		margin-bottom: 0;
+	}
+}
+
+#bio {
+	@include respond-to(handhelds) {
+		display: none;
+	}
+	padding-top: $unit-base*4;
+	p, ul {
+		padding: 0 $unit-base*3;
+		font-size: $description-text;
+		li {
+			margin-bottom: $unit-base;
+		}
+		&:first-child {
+			margin-top: 0;
+		}
+	}
+}
+
+#list-posts {
+	background-color: white;
+	padding-bottom: $unit-base*10;
+	h3 {
+		margin-bottom: $unit-base;
+		@include respond-to(handhelds) {
+			margin: $unit-base 0;
+		}
+	}
+	ul {
+		margin: 0;
+		padding: 0;
+	}
+	@include respond-to(handhelds) {
+		padding-bottom: $unit-base*5;	
+	}
+}
+
+.main-post, .post {
+	float: left;
+	padding: $unit-base*4;
+	border-top: 1px solid $gray-line;
+	@include respond-to(handhelds) {
+		padding: $unit-base*2 0;
+		margin: 0 $unit-base*2;
+		text-align: center;
+	}
+	.description-post {
+		display: inline-flex;
+		margin-bottom: 0;
+		div {
+			font-size: $detail-text;
+			margin: 0;
+			position: relative;
+			// text-align: center;
+			@include respond-to(handhelds) {
+				margin: 0;
+				text-align: center;
+				float: none;
+			}
+		}
+		@include respond-to(handhelds) {
+			display: inherit;
+			margin: 0;
+		}
+		.date, .type-post, .short-url {
+			font-weight: bold;
+			color: $text-color-gray;
+		}
+	}
+	a {
+		color: $text-color;
+		&:hover {
+			color: $link-color;
+		}
+	}
+	h2 {
+		display: inline-block;
+	}
+}
+
+.main-post {
+	@include respond-to(handhelds) {
+		border-top: none;
+		border-bottom: 1px solid $gray-line;
+		.type-post {
+			display: none;
+		}
+	}
+}
+
+.post {
+	.description-post {
+
+	}
+	@include respond-to(handhelds) {
+		border-top: none;
+		padding: $unit-base*2 0 0 0;
+		.description-post {
+			display: none;
+		}
+	}
+	header {
+		@include respond-to(handhelds) {
+			display: none;
+		}
+	}
+}
+
+.date {
+	@include respond-to(handhelds) {
+		float: left;
+		margin-top: $unit-base/2; 
+	}
+}
+
+.post-entry {
+	padding: $unit-base*6 0;
+	border-top: 1px solid $gray-line;
+	background-color: white;
+	header {
+		text-align: center;
+		margin-bottom: $unit-base * 6;
+		.description-post {
+			display: inline-flex;
+			margin-bottom: 0;
+			div {
+				font-size: $detail-text;
+				margin: 0 $unit-base*2;
+				position: relative;
+				// text-align: center;
+				@include respond-to(handhelds) {
+					margin: 0;
+					text-align: center;
+					float: none;
+				}
+			}
+			@include respond-to(handhelds) {
+				display: inherit;
+				margin-bottom: $unit-base*2;
+			}
+			.date, .type-post, .short-url {
+				font-weight: bold;
+				color: $text-color-gray;
+			}
+		}
+		h1 {
+			@include respond-to(handhelds) {
+				margin-bottom: $unit-base*1;
+			}
+		}
+		@include respond-to(handhelds) {
+			margin-bottom: $unit-base*2;
+		}
+	}
+	.perso-info {
+		text-align: left;
+		.name {
+			font-size: 65px;
+			font-weight: 900;
+			margin: $unit-base 0 $unit-base*4;
+			@include respond-to(medium-screens) {
+				text-align: center;
+			}
+			@include respond-to(handhelds) {
+				font-size: $h1-m;
+				margin: $unit-base*2 0;
+				text-align: center;
+			}
+		}
+		.function {
+			font-size: 22px;
+			font-style: italic;
+			color: $text-color-gray;
+			@include respond-to(medium-screens) {
+				text-align: center;
+			}
+			@include respond-to(handhelds) {
+				text-align: center;
+			}
+		}
+		@include respond-to(medium-screens) {
+			margin: $unit-base*6 0;
+		}
+	}
+	.content-post p:first-child {
+		margin-top: 0;
+	}
+	@include respond-to(medium-screens) {
+		margin: 0 $unit-base*3;
+	}
+	@include respond-to(handhelds) {
+		border-top: none;
+		padding: $unit-base*2;
+	}
+}
+
+.work-post {
+	@include respond-to(medium-screens) {
+		header {
+			margin-bottom: $unit-base*3;
+		}
+		.description-post {
+			margin-bottom: 0;
+		}
+	}
+}
+
+.post-list {
+	padding: 0;
+	margin: 0;
+	li { 
+		article {
+			padding-bottom: 0;
+			header {
+				@include respond-to(handhelds) {
+					padding-bottom: $unit-base*2;
+					margin-bottom: 0;
+					border-bottom: 1px solid $gray-line;
+				}
+				.description-post {
+					@include respond-to(handhelds) {
+						margin-bottom: 0;
+					}
+				}	
+			}
+			.steps-post {
+				@include respond-to(handhelds) {
+					display: none;
+				}
+			}
+		}
+		a h1 {
+			color: $text-color;
+			&:hover {
+				color: $link-color;
+			}
+		}
+	}	
+	&:last-child {
+		margin-bottom: $unit-base*20;
+		@include respond-to(handhelds) {
+			margin-bottom: $unit-base*5;
+		}
+	}
+}
+
+.p-post-work {
+	padding-left: $unit-base*4;
+	@include respond-to(medium-screens) {
+		padding-left: 0;
+	}
+	@include respond-to(handhelds) {
+		padding-left: 0;
+	}
+}
+
+.steps-post {
+	display: inline-flex;
+	background-color: $gray-background;
+	font-size: $description-text;
+	text-transform: uppercase;
+	padding: $unit-base $unit-base*3 $unit-base+5;
+	border-radius: 70px;
+	ul {
+		margin: 0;
+		padding: 0;
+		li {
+			text-align: left;
+			float: left;
+			margin: 0 $unit-base+5;
+			@include respond-to(handhelds) {
+				margin: 0;
+			}
+		}
+	}
+	@include respond-to(handhelds) {
+		font-size: $description-text-mobile;
+	}
+}
+
+.nav-inside {
+	@include respond-to(medium-screens) {
+		padding: 0 $unit-base*3;
+	} 
+	@include respond-to(handhelds) {
+		padding: 0 $unit-base*2;
+	}
+	.after {
+		@include respond-to(handhelds) {
+			margin-bottom: $unit-base*2;
+		}
+	}
+}
+
+.cv {
+	padding: $unit-base*8 0 $unit-base*20;
+	.center {
+		@include respond-to(handhelds) {
+			margin: 0 auto;
+			display: table;
+		}
+	}
+	@include respond-to(medium-screens) {
+		padding: $unit-base*6 0 0 0;
+	}
+	@include respond-to(handhelds) {
+		padding: $unit-base*2 $unit-base*2 $unit-base*4;
+	}
+}
+
+.big-img {
+	width: $unit-base*23;
+	height: $unit-base*23;
+	border-radius: 50%;
+	@include respond-to(handhelds) {
+		width: $unit-base*15;
+		height: $unit-base*15;
+	}
+}
+
+.gallery {
+	margin-top: $unit-base*6;
+	img {
+		margin-bottom: $unit-base*2;
+	}
+}
+
+.tags {
+	font-weight: bold;
+	font-size: $detail-text;
+	color: $text-color-gray;
+	margin-top: $unit-base;
+	ul li {
+		margin: 0 0 -5px 0;
+		float: left;
+		margin-right: $unit-base/2;
+	}
+	@include respond-to(handhelds) {
+		display: none;
+	}
+}
+
+footer {
+	margin-top: $unit-base*10;
+	padding: $unit-base*4 0 $unit-base*15;
+	background-color: $gray-background;
+	ul {
+		font-size: $detail-text;
+		line-height: 140%;
+	}
+	span.title-section {
+		font-size: 15px;
+		color: $title-section;
+		line-height: 18px;
+		letter-spacing: 2px;
+		text-transform: uppercase;
+	}
+	.sources {
+		padding-right: $unit-base*4;
+		li {
+			list-style-type: decimal;
+		}
+		@include respond-to(handhelds) {
+			padding-right: 0;
+		}
+	}
+	.files {
+		figcaption {
+			font-style: italic;
+			color: $text-color-gray;
+		}
+		@include respond-to(handhelds) {
+			display: none;
+		}
+	}
+	.post {
+		@extend #list-posts;
+		padding: $unit-base*2 $unit-base*2 0 0;
+		border-top: none;
+		background-color: $gray-background;
+		@include respond-to(handhelds) {
+			padding: $unit-base 0 0 0;
+		}
+	}
+	@include respond-to(medium-screens) {
+		padding: $unit-base*4 $unit-base*3 $unit-base*15;
+	}
+	@include respond-to(handhelds) {
+		margin-top: $unit-base*4;
+		padding: $unit-base*2 $unit-base*2 $unit-base*4;
+	}
+}
+
+.work {
+	@include respond-to(medium-screens) {
+		margin-top: 0;
+	}
+	.post {
+		@include respond-to(handhelds) {
+			margin: 0;
+		}
+	}
+}
+
+.files ul,
+.sources ul,
+.involved ul {
+	padding-left: $unit-base*2;
+}
+
+.files ul li,
+.sources ul li,
+.involved ul li {
+	margin-bottom: $unit-base*2;
+	list-style-type: initial;
+	@include respond-to(handhelds) {
+		
+	}
+}
+
+.code ul li {
+	margin-bottom: $unit-base/2;
+}
+
+.m-icon {
+	margin-right: $unit-base;
+}
+
+.side-involved {
+	margin-bottom: $unit-base*6;
+	.involved {
+		font-size: $detail-text;
+		width: 100%;
+		line-height: 140%;
+		@extend footer;
+		margin: 0 0 $unit-base*2;
+		padding: $unit-base*2;
+		&:first-child {
+			margin-top: 0;
+			@include respond-to(medium-screens) {
+				margin-right: $unit-base*2;
+			}
+		}
+		@include respond-to(medium-screens) {
+			width: 40%;
+			float: none;
+			margin: 0 auto;
+		}
+	}
+	@include respond-to(handhelds) {
+		margin-bottom: $unit-base;	
+	}
+}
